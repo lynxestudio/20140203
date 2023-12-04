@@ -77,7 +77,7 @@ ERROR:  permission denied for relation authors
 <p align="justify">Estos mensajes me indican que el usuario <b>martin</b> no tiene los privilegios necesarios para ejecutar el <tt>SELECT</tt> en esa tabla y que por lo tanto no podrá leer los registros a menos que el usuario propietario <b>postgres</b> conceda el privilegio de hacerlo ejecutando el comando <tt>GRANT</tt>.
 La sintaxis básica del comando es:</p>
 <pre>
-	  GRANT [privilegios] ON [objeto] TO {public | group | username}
+GRANT [privilegios] ON [objeto] TO {public | group | username}
 </pre>
 <p align="justify">Así que con la sesión de <b>postgres</b> ejecuto el siguiente comando:</p>
 <pre>
