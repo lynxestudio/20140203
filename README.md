@@ -34,29 +34,29 @@ Existen tres conceptos en el esquema de seguridad SQL: Usuarios, Objetos y privi
 <p align="justify">El <b>DDL (Data Definition Language)</b> incluye dos comandos para conceder y retirar privilegios: <b>GRANT</b> y <b>REVOKE</b></p>
 <p align="justify">Como ejemplo voy a crear la siguiente tabla en una base de datos llamada <i>bibl</i>, cuyo dueño de la base de datos es el usuario <b>postgres</b>.</p>
 <pre>
-		CREATE TABLE Authors(
-	   author_id        serial primary key,
-	   author_name     varchar(256),
-	   author_lastname     varchar(256),
-	   author_birthdate     date
-	   );
+CREATE TABLE Authors(
+ author_id        serial primary key,
+ author_name     varchar(256),
+ author_lastname     varchar(256),
+ author_birthdate     date
+);
 </pre>
 <div>
 <IMG src="picture_library/grant/fig1.png">
 </div><br>
 <p align="justify">Paso siguiente voy a insertar unos registros:</p>
 <pre>
-	  insert into authors(author_name,author_lastname,author_birthdate)
-	  values('Elizabeth','Bishop','02/08/1911');
-	  
-	  insert into authors(author_name,author_lastname,author_birthdate)
-	  values('Charles','Dickens','07/02/1812');
-	  
-	  insert into authors(author_name,author_lastname,author_birthdate)
-	  values('Jack','London','12/01/1876');
-	  
-	  insert into authors(author_name,author_lastname,author_birthdate)
-	  values('Joseph','Conrad','03/12/1857');
+insert into authors(author_name,author_lastname,author_birthdate)
+values('Elizabeth','Bishop','02/08/1911');
+ 
+insert into authors(author_name,author_lastname,author_birthdate)
+values('Charles','Dickens','07/02/1812');
+ 
+insert into authors(author_name,author_lastname,author_birthdate)
+values('Jack','London','12/01/1876');
+
+insert into authors(author_name,author_lastname,author_birthdate)
+values('Joseph','Conrad','03/12/1857');
 </pre>
  <p>Hago un <tt>SELECT</tt> y muestro los registros de la tabla.</p>
  <div>
@@ -66,9 +66,9 @@ Existen tres conceptos en el esquema de seguridad SQL: Usuarios, Objetos y privi
  <p>Ahora ingresaré con un usuario distinto al usuario <b>postgres</b>, ingresaré en la base de datos con el usuario <b>martin</b> y ejecutaré un <tt>SELECT</tt> sobre la tabla <i>authors</i>.</p>
  <p>Al ejecutar el <tt>SELECT</tt> <b>PostgreSQL</b> nos muestra los siguientes mensajes:</p>
  <pre>
-	  ERROR:  permission denied for relation authors
-	  STATEMENT:  SELECT * FROM authors;
-	  ERROR:  permission denied for relation authors
+ERROR:  permission denied for relation authors
+STATEMENT:  SELECT * FROM authors;
+ERROR:  permission denied for relation authors
 </pre>
  <div>
 <IMG src="picture_library/grant/fig3.png">
@@ -88,7 +88,7 @@ GRANT SELECT ON authors TO martin;
 </div><br>
 <p align="justify">Regresando a la sesión del usuario martin, vuelvo a ejecutar el comando <tt>SELECT</tt>.</p>
 <pre>
-		SELECT * FROM authors;
+SELECT * FROM authors;
 </pre>
 <p align="justify">Ya es posible que el usuario <b>martin</b> pueda ejecutar la consulta.</p>
 <div>
@@ -96,26 +96,26 @@ GRANT SELECT ON authors TO martin;
 </div><br>
 <p align="justify">Ahora intentaré crear un nuevo registro</p>
 <pre>
-	  insert into authors(author_name,author_lastname,author_birthdate)
-	  values('Gustave','Flaubert','12/12/1821');
+insert into authors(author_name,author_lastname,author_birthdate)
+values('Gustave','Flaubert','12/12/1821');
 </pre>
 <p align="justify"><b>PostgreSQL</b> me envía el siguiente mensaje debido a que este usuario no tiene el privilegio de <tt>INSERT</tt>:</p>
 <pre>
-		ERROR:  permission denied for relation authors
+ERROR:  permission denied for relation authors
 </pre>
  <div>
 <IMG src="picture_library/grant/fig6.png">
 </div><br>
  <p align="justify">Concedo al usuario <b>martin</b> el privilegio de <tt>INSERT</tt>, con el siguiente comando ejecutado por el usuario <b>postgres</b></p>
  <pre>
-	  GRANT INSERT ON authors TO martin;
+GRANT INSERT ON authors TO martin;
 </pre>
 <div>
 <IMG src="picture_library/grant/fig7.png">
 </div><br>
 <p align="justify">Ejecuto nuevamente el <tt>INSERT</tt> y <b>PostgreSQL</b> me envía ahora el siguiente mensaje:</p>
 <pre>
-	  ERROR: permission denied for sequence authors_author_id_seq
+ERROR: permission denied for sequence authors_author_id_seq
 </pre>
 <div>
 <IMG src="picture_library/grant/fig8.png">
@@ -134,11 +134,11 @@ GRANT SELECT ON authors TO martin;
 <p align="justify">Para mostrar los privilegios que se tienen sobre un determinado objeto, utilizamos el comando <tt>\z</tt>.
 La sintaxis es:</p>
 <pre>
-	  \z [nombre del objeto]
+\z [nombre del objeto]
 </pre>
 <p>Para este ejemplo ejecutamos:</p>
  <pre>
- \z authors;
+\z authors;
 </pre>
 <div>
 <IMG src="picture_library/grant/fig11.png">
