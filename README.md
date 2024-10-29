@@ -42,7 +42,7 @@ CREATE TABLE Authors(
 );
 </pre>
 <div>
-<IMG src="picture_library/grant/fig1.png">
+<IMG src="images/fig1.png">
 </div><br>
 <p align="justify">Paso siguiente voy a insertar unos registros:</p>
 <pre>
@@ -60,7 +60,7 @@ values('Joseph','Conrad','03/12/1857');
 </pre>
  <p>Hago un <tt>SELECT</tt> y muestro los registros de la tabla.</p>
  <div>
-<IMG src="picture_library/grant/fig2.png">
+<IMG src="images/fig2.png">
 </div><br>
  <p align="justify">Como se ve con el usuario <b>postgres</b> pude ejecutar sin ningún tipo de restricción las siguientes acciones: <tt>CREATE, INSERT y SELECT</tt></p>
  <p>Ahora ingresaré con un usuario distinto al usuario <b>postgres</b>, ingresaré en la base de datos con el usuario <b>martin</b> y ejecutaré un <tt>SELECT</tt> sobre la tabla <i>authors</i>.</p>
@@ -71,7 +71,7 @@ STATEMENT:  SELECT * FROM authors;
 ERROR:  permission denied for relation authors
 </pre>
  <div>
-<IMG src="picture_library/grant/fig3.png">
+<IMG src="images/fig3.png">
 </div><br>
 <h2>GRANT</h2>
 <p align="justify">Estos mensajes me indican que el usuario <b>martin</b> no tiene los privilegios necesarios para ejecutar el <tt>SELECT</tt> en esa tabla y que por lo tanto no podrá leer los registros a menos que el usuario propietario <b>postgres</b> conceda el privilegio de hacerlo ejecutando el comando <tt>GRANT</tt>.
@@ -84,7 +84,7 @@ GRANT [privilegios] ON [objeto] TO {public | group | username}
 GRANT SELECT ON authors TO martin;
 </pre>
  <div>
-<IMG src="picture_library/grant/fig4.png">
+<IMG src="images/fig4.png">
 </div><br>
 <p align="justify">Regresando a la sesión del usuario martin, vuelvo a ejecutar el comando <tt>SELECT</tt>.</p>
 <pre>
@@ -92,7 +92,7 @@ SELECT * FROM authors;
 </pre>
 <p align="justify">Ya es posible que el usuario <b>martin</b> pueda ejecutar la consulta.</p>
 <div>
-<IMG src="picture_library/grant/fig5.png">
+<IMG src="images/fig5.png">
 </div><br>
 <p align="justify">Ahora intentaré crear un nuevo registro</p>
 <pre>
@@ -104,32 +104,32 @@ values('Gustave','Flaubert','12/12/1821');
 ERROR:  permission denied for relation authors
 </pre>
  <div>
-<IMG src="picture_library/grant/fig6.png">
+<IMG src="images/fig6.png">
 </div><br>
  <p align="justify">Concedo al usuario <b>martin</b> el privilegio de <tt>INSERT</tt>, con el siguiente comando ejecutado por el usuario <b>postgres</b></p>
  <pre>
 GRANT INSERT ON authors TO martin;
 </pre>
 <div>
-<IMG src="picture_library/grant/fig7.png">
+<IMG src="images/fig7.png">
 </div><br>
 <p align="justify">Ejecuto nuevamente el <tt>INSERT</tt> y <b>PostgreSQL</b> me envía ahora el siguiente mensaje:</p>
 <pre>
 ERROR: permission denied for sequence authors_author_id_seq
 </pre>
 <div>
-<IMG src="picture_library/grant/fig8.png">
+<IMG src="images/fig8.png">
 </div><br>
 <p align="justify">Concedo entonces al usuario <b>martin</b> el privilegio de poder actualizar la secuencia con el siguiente comando (debe ser ejecutado por <b>postgres</b>):</p>
 <pre>
  GRANT UPDATE ON authors_author_id_seq TO martin;
  </pre>
  <div>
-<IMG src="picture_library/grant/fig9.png">
+<IMG src="images/fig9.png">
 </div><br>
 <p align="justify">Con los privilegios otorgados a la tabla y a la secuencia ahora ya es posible crear el registro.</p>
  <div>
-<IMG src="picture_library/grant/fig10.png">
+<IMG src="images/fig10.png">
 </div><br>
 <p align="justify">Para mostrar los privilegios que se tienen sobre un determinado objeto, utilizamos el comando <tt>\z</tt>.
 La sintaxis es:</p>
@@ -141,7 +141,7 @@ La sintaxis es:</p>
 \z authors;
 </pre>
 <div>
-<IMG src="picture_library/grant/fig11.png">
+<IMG src="images/fig11.png">
 </div><br>
 <h2>REVOKE</h2>
 <p align="justify">De la misma manera que se otorgaron los privilegios al usuario <b>martin</b> se le pueden retirar con el comando <b>REVOKE</b> la sintaxis básica del comando es:</p>
@@ -154,9 +154,9 @@ La sintaxis es:</p>
  REVOKE UPDATE on authors_author_id_seq FROM martin;
 </pre>
 <div>
-<IMG src="picture_library/grant/fig12.png">
+<IMG src="images/fig12.png">
 </div><br>
 <p>Si mostramos los privilegios de la tabla y de la secuencia, observamos que ya no se muestran los privilegios para el usuario <b>martin</b> , esto por que los quito el usuario <b>postgres</b>, quien es el propietario de los objetos. Para mostrar los privilegios de ambos objetos (secuencia y tabla) únicamente ejecuto el comando <tt>\z</tt> sin argumentos.</p>
 <div>
-<IMG src="picture_library/grant/fig13.png">
+<IMG src="images/fig13.png">
 </div>
