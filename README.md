@@ -33,14 +33,9 @@ Existen tres conceptos en el esquema de seguridad SQL: Usuarios, Objetos y privi
 <p align="justify">De manera predeterminada en <b>PostgreSQL</b> cuando se crea un objeto el creador del objeto es el propietario y se le asignan todos los privilegios sobre ese objeto, el resto de los usuarios no tiene ningún privilegio sobre ese objeto.</p>
 <p align="justify">El <b>DDL (Data Definition Language)</b> incluye dos comandos para conceder y retirar privilegios: <b>GRANT</b> y <b>REVOKE</b></p>
 <p align="justify">Como ejemplo voy a crear la siguiente tabla en una base de datos llamada <i>bibl</i>, cuyo dueño de la base de datos es el usuario <b>postgres</b>.</p>
-<pre>
-CREATE TABLE Authors(
- author_id        serial primary key,
- author_name     varchar(256),
- author_lastname     varchar(256),
- author_birthdate     date
-);
-</pre>
+<div>
+<IMG src="images/tbauthors.png">
+</div><br>
 <div>
 <IMG src="images/fig1.png">
 </div><br>
